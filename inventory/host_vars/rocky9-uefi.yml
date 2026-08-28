@@ -7,7 +7,7 @@ root_authorized_keys:
 
 strict_selinux: true # Touches /.autorelabel
 
-continue_install: false # Needs kernel version == installed kernel version
+continue_install: true # Needs kernel version == installed kernel version
 
 rootpw: rootpw
 installdisk:
