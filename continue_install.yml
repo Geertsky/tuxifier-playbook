@@ -8,11 +8,6 @@
   ansible.builtin.package:
     name: httpd
 
-- name: Enable apache
-  ansible.builtin.systemd_service:
-    name: httpd
-    enabled: true
-
 - name: Install demo page
   ansible.builtin.copy:
     dest: /var/www/html/index.html
@@ -32,3 +27,23 @@
       </body>
       </html>
       <html>
+- name: Open firewall http service
+  ansible.builtin.firewalld:
+    service: http
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: Enable and start Firewalld
+  ansible.builtin.systemd_service:
+    name: firewalld
+    enabled: true
+    state: started
+
+- name: Enable and start httpd
+  ansible.builtin.systemd_service:
+    name: httpd
+    enabled: true
+    state: started
+
