@@ -62,7 +62,7 @@ cd ../../
 ### Starting the playbook
 
 ```sh
-ansible-playbook -l installer-bios playbook
+ansible-playbook -l installer-bios playbook.yml
 ```
 > [!WARNING]
 > This playbook will destroy the installation disk without further warning!
