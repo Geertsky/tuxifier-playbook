@@ -1,14 +1,14 @@
 ---
 
-- name: Bambini
+- name: tuxifier
   hosts: installer-uefi,installer-bios
   tasks:
-    - name: Import role bambini
+    - name: Import role tuxifier
       ansible.builtin.import_role:
-        name: geertsky.bambini.ansible_bambini
+        name: geertsky.tuxifier.ansible_tuxifier
       environment:
-        PATH: "/local/conda/envs/bambini-python/sbin:/local/conda/envs/bambini-python/bin:{{ ansible_facts['env']['PATH'] | default('/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin') }}"
-        CONDA_PREFIX: "/local/conda/envs/bambini-python"
+        PATH: "/local/conda/envs/tuxifier-python/sbin:/local/conda/envs/tuxifier-python/bin:{{ ansible_facts['env']['PATH'] | default('/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin') }}"
+        CONDA_PREFIX: "/local/conda/envs/tuxifier-python"
 
     - name: "Wait for bootup to finish"
       ansible.builtin.wait_for_connection:

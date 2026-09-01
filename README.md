@@ -1,5 +1,5 @@
-# Bambini-playbook
-This repository can be used to demonstrate the bambini collection for bare-metal install  of servers
+# tuxifier-playbook
+This repository can be used to demonstrate the tuxifier collection for bare-metal install  of servers
 
 ## quick-start
 _This quick-start assumes usage of virt-manager_
@@ -15,13 +15,13 @@ So, the rocky9 initrd image can be used to install either target when `continue_
 When however the host_vars `continue_install` is set to `True`, then the rocky9 initrd can only be used for rocky9 installation or alma9 installation as only those repositories contain a `kernel-core-5.14.0-687.42.1.el9_8.x86_64` package.<br>
 
 The three initrd and vmlinux images available:
-* [ansible-bambini-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/ansible-bambini-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
-* [ansible-bambini-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/ansible-bambini-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
-* [ansible-bambini-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/ansible-bambini-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
+* [ansible-tuxifier-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
+* [ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
+* [ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
 The ssh private and public key required to access these initrd images are availabel from:
-* [id-bambini_ed25519](https://verweggistan.eu/id-bambini_ed25519)
-* [id-bambini_ed25519.pub](https://verweggistan.eu/id-bambini_ed25519.pub)
+* [id-tuxifier_ed25519](https://verweggistan.eu/id-tuxifier_ed25519)
+* [id-tuxifier_ed25519.pub](https://verweggistan.eu/id-tuxifier_ed25519.pub)
 >[!CAUTION]
 >As this ssh-key get's installed in the target machine as well, it is adviced to use the initrd images for demonstration purposes only!!
 
@@ -39,10 +39,10 @@ Starting the virtual machine should en in repetitively showing: <br>
 `00:00:07: Waiting for Ansible;`
 
 That indicates the ramdisk a ready for ansible instructions.
-### Installation of the bambini ansible collection
+### Installation of the tuxifier ansible collection
 
 ```sh
-ansible-galaxy collection install git+https://github.com/Geertsky/bambini.git
+ansible-galaxy collection install git+https://github.com/Geertsky/tuxifier.git
 ```
 
 ### Define the host_vars for the target installation
