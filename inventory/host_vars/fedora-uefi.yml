@@ -11,8 +11,6 @@ continue_install: false # Needs kernel version == installed kernel version
 
 rootpw: rootpw
 installdisk:
-  mount_root: /sysroot
-  mount_state: ephemeral
   force_filesystem: true
 
   disks:
