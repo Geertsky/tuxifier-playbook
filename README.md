@@ -1,6 +1,30 @@
 # tuxifier-playbook
 This repository can be used to demonstrate the tuxifier collection for bare-metal install  of servers
 
+Below a schematic representation of how the different parts of tuxifier work together.
+```mermaid
+flowchart LR
+HOSTVARS["<div style='text-align:left;line-height:1.15'><b>host_vars/installer.yml</b><br/>• installdistribution<br/>&nbsp;&nbsp;◦ name<br/>&nbsp;&nbsp;◦ version<br/>• installdisk<br/>&nbsp;&nbsp;◦ partitioning scheme<br/>&nbsp;&nbsp;◦ LVM layout</div>"]
+
+PLAYBOOK["<b>tuxifier-playbook<b>"]
+
+subgraph DRACUT["<a href='https://github.com/Geertsky/dracut-tuxifier' target='_blank' style='color:black;text-decoration:none;font-weight:bold'>dracut-tuxifier</a>"]
+direction LR
+SSHD["dracut-sshd"] --> PYTHON["tuxifier-python"]
+end
+
+COLLECTION["<div style='text-align:left;line-height:1.15'><b>tuxifier collection</b><br/>• partition the disk<br/>• install OS<br/>• tell initramfs to continue<br/>&nbsp;&nbsp;OR<br/>• tell initramfs to shutdown</div>"]
+
+HOSTVARS --> PLAYBOOK
+PLAYBOOK --> SSHD
+PYTHON --> COLLECTION
+
+click HOSTVARS "https://github.com/Geertsky/tuxifier-playbook/tree/f17079e4fcb5314eb0f49e378441cef3cfda5aa6/inventory/host_vars"
+click PLAYBOOK "https://github.com/Geertsky/tuxifier-playbook"
+click SSHD "https://github.com/gsauthof/dracut-sshd"
+click PYTHON "https://github.com/Geertsky/tuxifier-python"
+click COLLECTION "https://github.com/Geertsky/tuxifier"
+```
 ## quick-start
 _This quick-start assumes usage of virt-manager_
 
