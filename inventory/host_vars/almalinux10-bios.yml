@@ -7,12 +7,10 @@ root_authorized_keys:
 
 strict_selinux: true # Touches /.autorelabel
 
-continue_install: false # Needs kernel version == installed kernel version
+continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
 
 rootpw: rootpw
 installdisk:
-  force_filesystem: true
-
   disks:
     - device: /dev/vda
       label: gpt
