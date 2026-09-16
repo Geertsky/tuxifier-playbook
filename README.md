@@ -1,7 +1,7 @@
 # tuxifier-playbook
 This repository can be used to demonstrate the tuxifier collection for bare-metal installation of servers
 
-For a broad overview of Tuxifier and how its components fit together, see [What is the Tuxifier system?](docs/what_is_the_tuxifier_system.md).
+_For a broad overview of Tuxifier and how its components fit together, see [What is the Tuxifier system?](docs/what_is_the_tuxifier_system.md)._
 
 Below a schematic representation of how the different parts of tuxifier work together.
 ```mermaid
@@ -30,13 +30,13 @@ click COLLECTION "https://github.com/Geertsky/tuxifier"
 ## Quick-start
 _This quick start assumes that you are using virt-manager._
 
-For demonstration purposes there are initrd images available for:
+For demonstration purposes there are initramfs images available for:
 * rocky8
 * rocky9
 * rocky10
 
 With each of them an installation of either supplied version can be performed. For other versions, they'll have to be added.<br>
-The version used only makes a difference when the `continue_install` host varariable is set to `true`. In that case the kernel version used needs to be available for the target installation.<br>
+The version used only makes a difference when the `continue_install` host variable is set to `true`. In that case the kernel version used needs to be available for the target installation.<br>
 For example, the Rocky Linux 9 initramfs can install any supported target when continue_install is false. When it is true, the target repository must provide the exact running kernel package.<br>
 Therefore, this image can continue booting only a compatible EL9 target whose repository contains kernel-core-5.14.0-687.42.1.el9_8.x86_64.
 
@@ -46,7 +46,7 @@ The three initramfs and vmlinuz images available:
 * [ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
 * [ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
-The ssh private and public key required to access these initrd images are availabel from:
+The ssh private and public key required to access these initramfs images are available from:
 * [id-tuxifier_ed25519](https://verweggistan.eu/id-tuxifier_ed25519)
 * [id-tuxifier_ed25519.pub](https://verweggistan.eu/id-tuxifier_ed25519.pub)
 >[!CAUTION]
@@ -57,19 +57,19 @@ The ssh private and public key required to access these initrd images are availa
 Define a new virtual machine using virt-manager. An existing virtual machine can be used as well, but the disk will be destroyed.
 
 In the `hardware details` of the virtual machine choose `Boot options` and enable the **Direct kernel boot** option.<br>
-For the `kernel path:` and `Initrd path:` choose either of the three combinations of initrd images and vmlinuz images. _but obviously of the same version._
+For the `kernel path:` and `Initrd path:` choose either of the three combinations of initramfs images and vmlinuz images. _But obviously of the same version._
 
 For the `Kernel args` fill the following:
 ```
 rd.neednet=1 root=LABEL=root enforcing=0 console=tty0 console=ttyS0
 ```
-_Except for the `console` options, All options except the console arguments are required. Set root to the root filesystem that the newly installed system will use._
+_Except for the `console` options, All options except the console arguments are required. Set root to the root file system that the newly installed system will use._
 
-Starting the virtual machine should repeatedly display: <br>
+Starting the virtual machine should repeatedly display:<br>
 `00:00:07: Waiting for Ansible;`
 
-That indicates the ramdisk a ready for ansible instructions.
-### Installation of the tuxifier ansible collection
+That indicates the ram disk a ready for Ansible instructions.
+### Installation of the tuxifier Ansible collection
 
 To install the `tuxifier` collection, issue the following `ansible-galaxy` command:
 ```sh
