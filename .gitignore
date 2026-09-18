@@ -1,2 +1,7 @@
 mermaid-filter.err
 *.pdf
+*.odt
+*.ods
+*.odp
+*.svg
+*md_ltex.json
