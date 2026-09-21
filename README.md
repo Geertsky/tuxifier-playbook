@@ -1,7 +1,8 @@
 # tuxifier-playbook
 This repository can be used to demonstrate the tuxifier collection for bare-metal installation of servers
 
-_For a broad overview of Tuxifier and how its components fit together, see [introduction](introduction.md)._
+Documentation:
+* For a broad overview of Tuxifier, see [introduction](docs/introduction.md).
 
 Below a schematic representation of how the different parts of tuxifier work together.
 ```mermaid

@@ -1,6 +1,7 @@
 # Tuxifier introduction
 
-Setting up a server involves two distinct processes: installing the operating system and configuring the server to its desired state. Each process can use different tools and methods, and the choices made for one do not necessarily dictate those made for the other.
+Setting up a server involves two distinct processes: **installing the operating system** and **configuring the server to its desired state**.
+Each process can use different tools and methods, where the choises for tools and methods used, can have a great impact in the flexibility we have for the definition of our system.
 
 Tuxifier integrates these processes into a single installation workflow. You define the desired state of the server—including its partition layout, OS release, software, and configuration—in one place. Tuxifier then uses those definitions to install and configure the server.
 
@@ -52,8 +53,6 @@ flowchart TB
     style distribution fill:#E8F5E9,stroke:#388E3C,color:#1A1A1A
     style configuration fill:#C8E6C9,stroke:#388E3C,color:#1A1A1A
 ```
-
-_Examples of how these definitions for an installation can look like for a server can be found in [host_vars/](../inventory/host_vars/)._
 
 # The problem - How-to install a server on a fully parameterized, flexible manner
 
