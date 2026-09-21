@@ -3,6 +3,7 @@ This repository can be used to demonstrate the tuxifier collection for bare-meta
 
 Documentation:
 * For a broad overview of Tuxifier, see [introduction](docs/introduction.md).
+* For the architecture of Tuxifier, see [architecture](docs/architecture.md)
 
 Below a schematic representation of how the different parts of tuxifier work together.
 ```mermaid
