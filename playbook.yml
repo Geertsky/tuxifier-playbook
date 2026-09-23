@@ -2,6 +2,7 @@
 
 - name: Tuxifier
   hosts: installer-uefi,installer-bios
+  gather_facts: false
   tasks:
     - name: Import role tuxifier
       ansible.builtin.import_role:
