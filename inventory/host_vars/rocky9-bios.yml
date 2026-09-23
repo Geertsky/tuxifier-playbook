@@ -25,7 +25,7 @@ installdisk:
           number: 2
           part_start: 2MiB
           part_end: 1024MiB
-          fstype: ext3
+          fstype: ext4
           mkfs_opts: "-L boot -O ^orphan_file"
           mountpoint: /boot
           mount_opts: defaults

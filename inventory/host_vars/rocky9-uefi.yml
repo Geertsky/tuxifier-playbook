@@ -30,7 +30,7 @@ installdisk:
           number: 2
           part_start: 1024MiB
           part_end: 2GiB
-          fstype: fat32
+          fstype: vfat
           mkfs_opts: "-n EFI"
           mountpoint: /boot/efi
           mount_opts: "umask=0077,shortname=winnt"
