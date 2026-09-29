@@ -12,7 +12,7 @@ HOSTVARS["<div style='text-align:left;line-height:1.15'><b>host_vars/installer.y
 
 PLAYBOOK["<b>tuxifier-playbook</b>"]
 
-subgraph DRACUT["<a href='https://github.com/Geertsky/dracut-tuxifier' target='_blank' style='color:black;text-decoration:none;font-weight:bold'>dracut-tuxifier</a>"]
+subgraph DRACUT["<a href='https://github.com/Geertsky/dracut-incubator' target='_blank' style='color:black;text-decoration:none;font-weight:bold'>dracut-incubator</a>"]
 direction LR
 SSHD["dracut-sshd"] --> PYTHON["python-nest"]
 end

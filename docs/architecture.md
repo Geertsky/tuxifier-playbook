@@ -9,7 +9,7 @@ Tuxifier is made up of different projects. These projects are:
 
 - [Tuxifier-runtime](https://github.com/Geertsky/python-nest)
 
-- [Tuxifier boot](https://github.com/Geertsky/dracut-tuxifier)
+- [Tuxifier boot](https://github.com/Geertsky/dracut-incubator)
 
 ## Tuxifier playbook
 
@@ -80,7 +80,7 @@ flowchart TB
 
     subgraph BOOTBUILD["Build boot environment"]
       direction LR
-      DTBUILD["dracut-tuxifier"]:::dracutTux
+      DTBUILD["dracut-incubator"]:::dracutTux
       SSHDBUILD["dracut-sshd"]:::support
       DRACUT["dracut"]:::support
       INIT["Customized initramfs"]:::custinitramfs
@@ -95,7 +95,7 @@ flowchart TB
   end
 
   %% ==================== LINKS ====================
-  click DTBUILD "https://github.com/Geertsky/dracut-tuxifier/blob/HEAD/94tuxifier/module-setup.sh" "dracut-tuxifier build integration" _blank
+  click DTBUILD "https://github.com/Geertsky/dracut-incubator/blob/HEAD/94tuxifier/module-setup.sh" "dracut-incubator build integration" _blank
   click TPBUILD "https://github.com/Geertsky/python-nest/blob/HEAD/README.md" "python-nest build and runtime documentation" _blank
 
   %% ==================== STYLING ====================
@@ -166,7 +166,7 @@ flowchart TB
 
       subgraph IR["initramfs — Boot environment"]
         direction TB
-        DT["<b>dracut-tuxifier</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest runtime</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
+        DT["<b>dracut-incubator</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest runtime</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
         SSHD["dracut-sshd"]:::support
         EXEC["geertsky.tuxifier<br/>Installation task execution"]:::tuxifier
 
@@ -214,7 +214,7 @@ flowchart TB
   click RES "https://github.com/Geertsky/tuxifier/blob/main/plugins/modules/generate_minimal_install_urls_info.py" "RPM dependency resolver source" _blank
   click EXEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/main.yml" "Installation task execution" _blank
   click DEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/continue_install.yml" "Continuation decision source" _blank
-  click DT "https://github.com/Geertsky/dracut-tuxifier/blob/HEAD/README.md" "dracut-tuxifier runtime overview" _blank
+  click DT "https://github.com/Geertsky/dracut-incubator/blob/HEAD/README.md" "dracut-incubator runtime overview" _blank
   click TPTITLE "https://github.com/Geertsky/python-nest/blob/HEAD/README.md" "python-nest build and runtime documentation" _blank
 
   %% ==================== STYLING ====================
