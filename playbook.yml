@@ -8,8 +8,8 @@
       ansible.builtin.import_role:
         name: geertsky.tuxifier.ansible_tuxifier
       environment:
-        PATH: "/local/conda/envs/tuxifier-python/sbin:/local/conda/envs/tuxifier-python/bin:{{ ansible_facts['env']['PATH'] | default('/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin') }}"
-        CONDA_PREFIX: "/local/conda/envs/tuxifier-python"
+        PATH: "/local/conda/envs/python-nest/sbin:/local/conda/envs/python-nest/bin:{{ ansible_facts['env']['PATH'] | default('/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin') }}"
+        CONDA_PREFIX: "/local/conda/envs/python-nest"
 
     - name: "Wait for bootup to finish"
       ansible.builtin.wait_for_connection:

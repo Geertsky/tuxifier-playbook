@@ -7,7 +7,7 @@ Tuxifier is made up of different projects. These projects are:
 
 - [Tuxifier tasks collection](https://github.com/Geertsky/tuxifier)
 
-- [Tuxifier-runtime](https://github.com/Geertsky/tuxifier-python)
+- [Tuxifier-runtime](https://github.com/Geertsky/python-nest)
 
 - [Tuxifier boot](https://github.com/Geertsky/dracut-tuxifier)
 
@@ -62,14 +62,14 @@ flowchart TB
   subgraph PREP["PREPARATION — prerequisite builds before installation"]
     direction TB
 
-    subgraph PYBUILD["Build tuxifier-python"]
+    subgraph PYBUILD["Build python-nest"]
       direction LR
       CF["conda-forge channel"]:::support
       GC["geertsky channel"]:::support
       CONDA["Conda"]:::support
-      TPBUILD["tuxifier-python<br/>Conda environment"]:::tuxpy
+      TPBUILD["python-nest<br/>Conda environment"]:::tuxpy
       PACK["conda-pack"]:::support
-      SQ["tuxifier-python.squashfs"]:::artifact
+      SQ["python-nest.squashfs"]:::artifact
 
       CF -->|"supplies packages"| CONDA
       GC -->|"supplies packages"| CONDA
@@ -96,7 +96,7 @@ flowchart TB
 
   %% ==================== LINKS ====================
   click DTBUILD "https://github.com/Geertsky/dracut-tuxifier/blob/HEAD/94tuxifier/module-setup.sh" "dracut-tuxifier build integration" _blank
-  click TPBUILD "https://github.com/Geertsky/tuxifier-python/blob/HEAD/README.md" "tuxifier-python build and runtime documentation" _blank
+  click TPBUILD "https://github.com/Geertsky/python-nest/blob/HEAD/README.md" "python-nest build and runtime documentation" _blank
 
   %% ==================== STYLING ====================
   classDef tuxifier fill:#0F6F73,stroke:#084B4E,color:#FFFFFF,stroke-width:2px
@@ -166,13 +166,13 @@ flowchart TB
 
       subgraph IR["initramfs — Boot environment"]
         direction TB
-        DT["<b>dracut-tuxifier</b><br/><ul><li><b>Initialization</b><ul><li>mounts tuxifier-python runtime</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
+        DT["<b>dracut-tuxifier</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest runtime</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
         SSHD["dracut-sshd"]:::support
         EXEC["geertsky.tuxifier<br/>Installation task execution"]:::tuxifier
 
-        subgraph TPENV["tuxifier-python — Conda environment"]
+        subgraph TPENV["python-nest — Conda environment"]
           direction TB
-          TPTITLE["tuxifier-python"]:::tuxpy
+          TPTITLE["python-nest"]:::tuxpy
           PY["Python runtime"]:::runtime
           DISK["Disk and filesystem tools"]:::runtime
           PKG["Package installation and download tools"]:::runtime
@@ -215,7 +215,7 @@ flowchart TB
   click EXEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/main.yml" "Installation task execution" _blank
   click DEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/continue_install.yml" "Continuation decision source" _blank
   click DT "https://github.com/Geertsky/dracut-tuxifier/blob/HEAD/README.md" "dracut-tuxifier runtime overview" _blank
-  click TPTITLE "https://github.com/Geertsky/tuxifier-python/blob/HEAD/README.md" "tuxifier-python build and runtime documentation" _blank
+  click TPTITLE "https://github.com/Geertsky/python-nest/blob/HEAD/README.md" "python-nest build and runtime documentation" _blank
 
   %% ==================== STYLING ====================
   classDef tuxifier fill:#0F6F73,stroke:#084B4E,color:#FFFFFF,stroke-width:2px
