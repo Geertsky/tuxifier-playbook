@@ -11,47 +11,39 @@ continue_install: false # When true, then it needs current kernel version == ins
 
 rootpw: rootpw
 installdisk:
-  disks:
-    - device: /dev/vda
-      label: gpt
-      partitions:
-        - id: bios_grub
-          number: 1
-          part_start: 1MiB
-          part_end: 2MiB
-          flags:
-            - bios_grub
-        - id: boot
-          number: 2
-          part_start: 2MiB
-          part_end: 1024MiB
-          fstype: ext3
-          mkfs_opts: "-L boot -O ^orphan_file"
-          mountpoint: /boot
-          mount_opts: defaults
-          mount_order: 20
+  - name: /dev/vda
+    type: partition
+    disks: [/dev/vda]
+    volumes:
+      - name: "1"
+        size: 1MiB
+        fs_type: biosboot
 
-        - id: pv.01
-          number: 3
-          part_start: 2GiB
-          part_end: 100%
-          flags:
-            - lvm
+      - name: "2"
+        size: 1022MiB
+        fs_type: ext3
+        fs_label: boot
+        fs_create_options: "-O ^orphan_file"
+        mount_point: /boot
+        mount_options: defaults
 
-  lvm_layout:
-    - vg: vg.rh
-      pvs:
-        - pv.01
-      lvs:
-        - lv: swap
-          size: 512M
-          fstype: swap
-          mkfs_opts: "-L swap"
+      - name: "3"
+        size: "0"
+        fs_type: lvmpv
 
-        - lv: root
-          size: 100%FREE
-          fstype: ext3
-          mkfs_opts: "-L root -O ^orphan_file"
-          mountpoint: /
-          mount_opts: defaults
-          mount_order: 10
+  - name: vg.rh
+    type: lvm
+    disks: [/dev/vda3]
+    volumes:
+      - name: swap
+        size: 512M
+        fs_type: swap
+        fs_label: swap
+
+      - name: root
+        size: 100%
+        fs_type: ext3
+        fs_label: root
+        fs_create_options: "-O ^orphan_file"
+        mount_point: /
+        mount_options: defaults
