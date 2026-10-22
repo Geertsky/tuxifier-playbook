@@ -82,13 +82,13 @@ ansible-galaxy collection install git+https://github.com/Geertsky/tuxifier.git
 
 In this repository there are a number of example target installations defined (see [inventory/host_vars](inventory/host_vars)).
 
-This quick-start assumes the hostname for the target is either `installer-bios` or `installer-uefi`
+This quick-start assumes the hostname for the target is one of the `installer` group in [inventory/inventory.ini](inventory/inventory.ini), for example `installer9-bios` or `installer9-uefi`
 
 ```sh
 cd inventory/host_vars/
-ln -s rocky9-bios.yml installer-bios.yml
+ln -sf rocky9-bios.yml installer9-bios.yml
 # For UEFI instead:
-# ln -s rocky9-uefi.yml installer-uefi.yml
+# ln -sf rocky9-uefi.yml installer9-uefi.yml
 cd ../../
 ```
 
@@ -98,7 +98,7 @@ cd ../../
 ### Starting the playbook
 
 ```sh
-ansible-playbook -l installer-bios playbook.yml
+ansible-playbook -l installer9-bios playbook.yml
 ```
 > [!WARNING]
 > This playbook will destroy the installation disk without further warning!
