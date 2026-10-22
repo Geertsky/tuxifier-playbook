@@ -1,6 +1,9 @@
 installdistribution:
   name: rocky
   version: 10
+  repo:
+    type: baseurl
+    url: http://192.168.122.1/rocky/10/BaseOS/x86_64/os/
 
 root_authorized_keys:
   - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm4c78woS/1JU/A+jeAuKjuThZSH7qUbzuS+ldogq2v geert@clt-mgt05'
@@ -44,7 +47,7 @@ installdisk:
         fs_label: swap
 
       - name: root
-        size: 100%
+        size: 5GiB
         fs_type: ext4
         fs_label: root
         fs_create_options: "-O ^orphan_file"
