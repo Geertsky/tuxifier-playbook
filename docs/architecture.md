@@ -211,7 +211,7 @@ flowchart TB
 
   %% ==================== LINKS ====================
   click ORCH "https://github.com/Geertsky/tuxifier" "geertsky.tuxifier overview and orchestration" _blank
-  click RES "https://github.com/Geertsky/tuxifier/blob/main/plugins/modules/generate_minimal_install_urls_info.py" "RPM dependency resolver source" _blank
+  click RES "https://github.com/Geertsky/tuxifier/blob/main/plugins/modules/generate_minimal_install_info.py" "RPM dependency resolver source" _blank
   click EXEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/main.yml" "Installation task execution" _blank
   click DEC "https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/tasks/continue_install.yml" "Continuation decision source" _blank
   click DT "https://github.com/Geertsky/dracut-incubator/blob/HEAD/README.md" "dracut-incubator runtime overview" _blank
