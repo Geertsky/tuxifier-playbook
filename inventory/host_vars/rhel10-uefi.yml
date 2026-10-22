@@ -1,6 +1,6 @@
 installdistribution:
   name: rhel
-  version: 9
+  version: 10
   repo:
     type: baseurl
     url: http://192.168.122.1/rhel/10.2/BaseOS/
@@ -11,8 +11,6 @@ root_authorized_keys:
 strict_selinux: true # Touches /.autorelabel
 
 continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
-
-hostname: installer-uefi
 
 rootpw: rootpw
 installdisk:
@@ -49,7 +47,7 @@ installdisk:
         fs_label: swap
 
       - name: root
-        size: 100%
+        size: 5GiB
         fs_type: ext4
         fs_label: root
         fs_create_options: "-O ^orphan_file"

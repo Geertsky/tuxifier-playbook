@@ -12,9 +12,10 @@ strict_selinux: true # Touches /.autorelabel
 
 continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
 
-hostname: installer-uefi
+hostname: installer9-uefi
 
 rootpw: rootpw
+storage_disklabel_type: gpt
 installdisk:
   - name: /dev/vda
     type: partition
@@ -49,7 +50,7 @@ installdisk:
         fs_label: swap
 
       - name: root
-        size: 100%
+        size: 5GiB
         fs_type: ext4
         fs_label: root
         fs_create_options: "-O ^orphan_file"
