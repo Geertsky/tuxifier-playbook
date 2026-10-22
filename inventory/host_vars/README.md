@@ -1,16 +1,13 @@
-In `inventory/inventory.ini`, `installer-uefi` and `installer-bios` are defined.
+In `inventory/inventory.ini`, the group `installer` holds six test machines:
+`installer{8,9,10}-{bios,uefi}`. Each has a pinned IP in the libvirt network and an entry in `/etc/hosts`.
 
-So for testing installation of a distribution, create a soft-link from distribution host_vars to installer-uefi.yml or installer-bios.yml depending of the machine type.
+Their host_vars (`installer8-bios.yml`, ...) are soft-links to the distribution host_vars (`rocky8-bios.yml`, ...). The distribution host_vars use the local mirror in `~/web/mirror` (served at `http://192.168.122.1/`: `rocky/{8,9,10}`, `rhel/{9.8,10.2}`).
+To test another distribution on a machine, re-point its soft-link, for example:
 
-For testing bios and uefi I used the following workflow:
-
-*With hostname `installer-uefi` defined in `/etc/hosts`*
 ```sh
 cd inventory/host_vars/
-unlink installer-uefi.yml
-ln -s rocky10-uefi.yml installer-uefi.yml
+ln -sf rocky10-uefi.yml installer8-uefi.yml
 
 cd ../..
-ansible-playbook -l installer-uefi playbook.yml
+ansible-playbook -l installer8-uefi playbook.yml
 ```
-

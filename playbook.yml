@@ -1,7 +1,7 @@
 ---
 
 - name: Tuxifier
-  hosts: installer-uefi,installer-bios
+  hosts: installer
   gather_facts: false
   tasks:
     - name: Import role tuxifier
