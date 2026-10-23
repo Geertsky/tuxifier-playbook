@@ -44,9 +44,9 @@ Therefore, this image can continue booting only a compatible EL9 target whose re
 
 
 The three initramfs and vmlinuz images available:
-* [ansible-tuxifier-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
-* [ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
-* [ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/ansible-tuxifier-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
+* [incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
+* [incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
+* [incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
 The ssh private and public key required to access these initramfs images are available from:
 * [id-tuxifier_ed25519](https://verweggistan.eu/id-tuxifier_ed25519)
@@ -93,7 +93,7 @@ cd ../../
 ```
 
 >[!IMPORTANT]
->The example host variables assume that the virtual machine has a VirtIO disk. The first VirtIO disk normally appears as `/dev/vda`, so the examples set `installdisk.disks[0].device` to `/dev/vda`. Change this value if the installation disk uses another device path.
+>The example host variables assume that the virtual machine has a VirtIO disk. The first VirtIO disk normally appears as `/dev/vda`, so the examples use `/dev/vda` as `name` and in `disks` of the `installdisk` pool. Change this value if the installation disk uses another device path.
 
 ### Starting the playbook
 
