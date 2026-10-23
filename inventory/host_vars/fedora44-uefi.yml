@@ -1,0 +1,55 @@
+installdistribution:
+  name: fedora
+  version: 44
+  repo:
+    type: baseurl
+    url: http://192.168.122.1/mirror/fedora/44/Everything/x86_64/os/
+
+root_authorized_keys:
+  - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm4c78woS/1JU/A+jeAuKjuThZSH7qUbzuS+ldogq2v geert@clt-mgt05'
+
+strict_selinux: true # Touches /.autorelabel
+
+continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
+
+rootpw: rootpw
+installdisk:
+  - name: /dev/vda
+    type: partition
+    disks: [/dev/vda]
+    volumes:
+      - name: "1"
+        size: 1GiB
+        fs_type: ext4
+        fs_label: boot
+        fs_create_options: "-O ^orphan_file"
+        mount_point: /boot
+        mount_options: defaults
+
+      - name: "2"
+        size: 1GiB
+        fs_type: efi
+        fs_label: EFI
+        mount_point: /boot/efi
+        mount_options: "umask=0077,shortname=winnt"
+
+      - name: "3"
+        size: "0"
+        fs_type: lvmpv
+
+  - name: vg.rh
+    type: lvm
+    disks: [/dev/vda3]
+    volumes:
+      - name: swap
+        size: 512M
+        fs_type: swap
+        fs_label: swap
+
+      - name: root
+        size: 5GiB
+        fs_type: ext4
+        fs_label: root
+        fs_create_options: "-O ^orphan_file"
+        mount_point: /
+        mount_options: defaults
