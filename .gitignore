@@ -5,3 +5,4 @@ mermaid-filter.err
 *.odp
 *.svg
 *md_ltex.json
+inventory/host_vars/installer*
