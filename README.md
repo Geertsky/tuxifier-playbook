@@ -67,12 +67,18 @@ Starting the virtual machine should repeatedly display:<br>
 `00:00:07: Waiting for Ansible;`
 
 That indicates the ram disk a ready for Ansible instructions.
-### Installation of the tuxifier Ansible collection
+### Installation of the tuxifier Ansible collection and the storage role
 
 To install the `tuxifier` collection, issue the following `ansible-galaxy` command:
 ```sh
 ansible-galaxy collection install git+https://github.com/Geertsky/tuxifier.git
 ```
+
+The collection needs the role [linux-system-roles.storage](https://github.com/linux-system-roles/storage) to create the storage layout. It is a role and not a collection, so it is installed separately, from its `main` branch and not from the latest release (1.22.1), which lacks what `tuxifier` needs:
+```sh
+git clone https://github.com/linux-system-roles/storage ~/.ansible/roles/linux-system-roles.storage
+```
+The role README of the collection explains [why the version matters](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#roles).
 
 ### Define the host variables for the target installation
 
