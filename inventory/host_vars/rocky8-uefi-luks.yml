@@ -1,9 +1,12 @@
+# rocky8-uefi with an encrypted (LUKS) logical volume mounted on /secure.
+# The passphrase is asked at boot (crypttab key field none) and the boot continues without the volume
+# when it is not given (nofail). Keep luks_passphrase in an Ansible Vault.
 installdistribution:
-  name: almalinux
-  version: 10
+  name: rocky
+  version: 8
   repo:
     type: baseurl
-    url: http://192.168.122.1/mirror/almalinux/10/BaseOS/x86_64/os/
+    url: http://192.168.122.1/rocky/8/BaseOS/x86_64/os/
 
 root_authorized_keys:
   - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm4c78woS/1JU/A+jeAuKjuThZSH7qUbzuS+ldogq2v geert@clt-mgt05'
@@ -12,7 +15,12 @@ strict_selinux: true # Touches /.autorelabel
 
 continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
 
+hostname: installer8-uefi
+
 rootpw: rootpw
+luks_passphrase: luks-passphrase
+tuxifier_crypttab_options: luks,nofail
+storage_disklabel_type: gpt
 installdisk:
   - name: /dev/vda
     type: partition
@@ -20,7 +28,7 @@ installdisk:
     volumes:
       - name: "1"
         size: 1GiB
-        fs_type: ext4
+        fs_type: ext3
         fs_label: boot
         fs_create_options: "-O ^orphan_file"
         mount_point: /boot
@@ -48,8 +56,18 @@ installdisk:
 
       - name: root
         size: 5GiB
-        fs_type: ext4
+        fs_type: ext3
         fs_label: root
         fs_create_options: "-O ^orphan_file"
         mount_point: /
         mount_options: defaults
+
+      - name: secure
+        size: 1GiB
+        fs_type: ext4
+        fs_label: secure
+        fs_create_options: "-O ^orphan_file"
+        encryption: true
+        encryption_password: "{{ luks_passphrase }}"
+        mount_point: /secure
+        mount_options: defaults,nofail

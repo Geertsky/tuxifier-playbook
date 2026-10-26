@@ -34,19 +34,15 @@ _This quick start assumes that you are using virt-manager._
 
 For demonstration purposes there are initramfs images available for:
 * rocky8
-* rocky9
-* rocky10
 
-With each of them an installation of either supplied version can be performed. For other versions, they'll have to be added.<br>
+With it an installation of version 8 can be performed. For other versions, they'll have to be added.<br>
 The version used only makes a difference when the `continue_install` host variable is set to `true`. In that case the kernel version used needs to be available for the target installation.<br>
-For example, the Rocky Linux 9 initramfs can install any supported target when continue_install is false. When it is true, the target repository must provide the exact running kernel package.<br>
-Therefore, this image can continue booting only a compatible EL9 target whose repository contains kernel-core-5.14.0-687.42.1.el9_8.x86_64.
+For example, the Rocky Linux 8 initramfs can install any supported target when continue_install is false. When it is true, the target repository must provide the exact running kernel package.<br>
+Therefore, this image can continue booting only a compatible EL8 target whose repository contains kernel-core-4.18.0-553.155.1.el8_10.x86_64.
 
 
-The three initramfs and vmlinuz images available:
+The initramfs and vmlinuz image available (version 9 and 10 are supported in the `main` branch of this repository):
 * [incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
-* [incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
-* [incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
 The ssh private and public key required to access these initramfs images are available from:
 * [id-tuxifier_ed25519](https://verweggistan.eu/id-tuxifier_ed25519)
@@ -82,13 +78,13 @@ ansible-galaxy collection install git+https://github.com/Geertsky/tuxifier.git
 
 In this repository there are a number of example target installations defined (see [inventory/host_vars](inventory/host_vars)).
 
-This quick-start assumes the hostname for the target is one of the `installer` group in [inventory/inventory.ini](inventory/inventory.ini), for example `installer9-bios` or `installer9-uefi`
+This quick-start assumes the hostname for the target is one of the `installer` group in [inventory/inventory.ini](inventory/inventory.ini), for example `installer8-bios` or `installer8-uefi`
 
 ```sh
 cd inventory/host_vars/
-ln -sf rocky9-bios.yml installer9-bios.yml
+ln -sf rocky8-bios.yml installer8-bios.yml
 # For UEFI instead:
-# ln -sf rocky9-uefi.yml installer9-uefi.yml
+# ln -sf rocky8-uefi.yml installer8-uefi.yml
 cd ../../
 ```
 
@@ -98,7 +94,7 @@ cd ../../
 ### Starting the playbook
 
 ```sh
-ansible-playbook -l installer9-bios playbook.yml
+ansible-playbook -l installer8-bios playbook.yml
 ```
 > [!WARNING]
 > This playbook will destroy the installation disk without further warning!
