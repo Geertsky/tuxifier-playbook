@@ -33,7 +33,6 @@ click COLLECTION "https://github.com/Geertsky/tuxifier"
 _This quick start assumes that you are using virt-manager._
 
 For demonstration purposes there are initramfs images available for:
-* rocky8
 * rocky9
 * rocky10
 
@@ -43,8 +42,7 @@ For example, the Rocky Linux 9 initramfs can install any supported target when c
 Therefore, this image can continue booting only a compatible EL9 target whose repository contains kernel-core-5.14.0-687.42.1.el9_8.x86_64.
 
 
-The three initramfs and vmlinuz images available:
-* [incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
+The two initramfs and vmlinuz images available (only version 9 and 10 are supported here; version 8 is supported in the `el8` branch of this repository, see the [note in the role README](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#supported-distributions)):
 * [incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
 * [incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
@@ -59,7 +57,7 @@ The ssh private and public key required to access these initramfs images are ava
 Define a new virtual machine using virt-manager. An existing virtual machine can be used as well, but the disk will be destroyed.
 
 In the `hardware details` of the virtual machine choose `Boot options` and enable the **Direct kernel boot** option.<br>
-For the `kernel path:` and `Initrd path:` choose either of the three combinations of initramfs images and vmlinuz images. _But obviously of the same version._
+For the `kernel path:` and `Initrd path:` choose either of the two combinations of initramfs images and vmlinuz images. _But obviously of the same version._
 
 For the `Kernel args` fill the following:
 ```

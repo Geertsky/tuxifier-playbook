@@ -23,8 +23,3 @@
       when: continue_install is defined and continue_install
       ansible.builtin.include_tasks:
         file: continue_install.yml
-      vars:
-        ansible_python_interpreter: >-
-          {{ '/usr/libexec/platform-python'
-            if ansible_facts['distribution_major_version'] | int == 8
-            else 'auto_silent'}}
