@@ -28,7 +28,7 @@
       </html>
       <html>
 - name: Open firewall http service
-  ansible.builtin.firewalld:
+  ansible.posix.firewalld:
     service: http
     state: enabled
     permanent: true
@@ -46,4 +46,3 @@
     name: httpd
     enabled: true
     state: started
-
