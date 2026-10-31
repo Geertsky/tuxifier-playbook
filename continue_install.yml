@@ -75,3 +75,25 @@
     name: httpd
     enabled: true
     state: started
+
+# The role skips its relabel when continue_install is true, so the first boot of the installed system ran on unlabeled files.
+# Only when the files are still unlabeled (unlabeled_t, or ? when SELinux is off), so that a repeated run does not relabel again.
+- name: Check that the installed system is labeled
+  when: (strict_selinux | default(false) | bool) and ansible_facts['selinux']['status'] | default('disabled') != 'disabled'
+  block:
+    - name: Read the label of sshd
+      ansible.builtin.command:
+        argv:
+          - ls
+          - -Z
+          - /usr/sbin/sshd
+      register: _sshd_label
+      changed_when: false
+
+    - name: Relabel the installed system at the next boot
+      ansible.builtin.command:
+        argv:
+          - fixfiles
+          - -F
+          - onboot
+      when: _sshd_label.stdout is search('unlabeled_t') or _sshd_label.stdout is match('^[?]')
