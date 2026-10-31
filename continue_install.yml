@@ -27,13 +27,42 @@
       </body>
       </html>
       <html>
+# The firewall bindings of the python that runs the modules of version 8 do not exist, so the module cannot be used.
 - name: Open firewall http service
+  when: ansible_facts['distribution_major_version'] != '8'
   ansible.posix.firewalld:
     service: http
     state: enabled
     permanent: true
     immediate: true
     offline: true
+
+- name: Open firewall http service on version 8
+  when: ansible_facts['distribution_major_version'] == '8'
+  block:
+    - name: Query firewall http service
+      ansible.builtin.command:
+        argv:
+          - firewall-offline-cmd
+          - --query-service=http
+      register: _firewall_http
+      changed_when: false
+      failed_when: _firewall_http.rc not in [0, 1]
+
+    - name: Enable firewall http service
+      ansible.builtin.command:
+        argv:
+          - firewall-offline-cmd
+          - --add-service=http
+      when: _firewall_http.rc == 1
+      register: _firewall_http_added
+
+    # firewalld is already running on the first boot of the installed system and does not read the files that firewall-offline-cmd wrote.
+    - name: Restart firewalld to load the http service
+      ansible.builtin.systemd_service:
+        name: firewalld
+        state: restarted
+      when: _firewall_http_added is changed
 
 - name: Enable and start Firewalld
   ansible.builtin.systemd_service:
