@@ -6,3 +6,5 @@ mermaid-filter.err
 *.svg
 *md_ltex.json
 inventory/host_vars/installer*
+.tox/
+.ansible/
