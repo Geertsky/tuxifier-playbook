@@ -76,6 +76,18 @@
     enabled: true
     state: started
 
+# The storage role puts the /tuxifier-sysroot mounts in the fstab of the initramfs. The systemd of version 8 generates mount units
+# from them that fail ("already mounted on /sysroot"), and the failed state is carried into the installed system.
+# The ? matches the backslash in the unit name tuxifier\x2dsysroot.mount.
+- name: Reset the failed mount units of the installer
+  ansible.builtin.command:
+    argv:
+      - systemctl
+      - reset-failed
+      - 'tuxifier?x2dsysroot*.mount'
+  changed_when: false
+  failed_when: false
+
 # The role skips its relabel when continue_install is true, so the first boot of the installed system ran on unlabeled files.
 # Only when the files are still unlabeled (unlabeled_t, or ? when SELinux is off), so that a repeated run does not relabel again.
 - name: Check that the installed system is labeled
