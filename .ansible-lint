@@ -1,0 +1,9 @@
+---
+profile: production
+kinds:
+  - tasks: "**/continue_install.yml"
+exclude_paths:
+  - .tox/
+  - .ansible/
+  - .git/
+  - docs/

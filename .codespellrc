@@ -1,0 +1,4 @@
+[codespell]
+check-hidden = true
+ignore-words = .codespell_ignores
+skip = .git,.tox,.ansible,*.pdf,*.odt,*.ods,*.odp,*.svg,*md_ltex.json,.markdownlint.yaml
