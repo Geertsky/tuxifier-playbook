@@ -1,19 +1,19 @@
-installdistribution:
+ansible_tuxifier__installdistribution:
   name: fedora
   version: 38
   repo:
     type: baseurl
     url: http://192.168.122.1/mirror/fedora/38/Everything/x86_64/os/
 
-root_authorized_keys:
+ansible_tuxifier__root_authorized_keys:
   - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOm4c78woS/1JU/A+jeAuKjuThZSH7qUbzuS+ldogq2v geert@clt-mgt05'
 
-strict_selinux: true # Touches /.autorelabel
+ansible_tuxifier__strict_selinux: true # Touches /.autorelabel
 
-continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
+ansible_tuxifier__continue_install: false # When true, then it needs current kernel version == installed kernel version. This is forced by tuxifier.
 
-rootpw: rootpw
-installdisk:
+ansible_tuxifier__rootpw: rootpw
+ansible_tuxifier__installdisk:
   - name: /dev/vda
     type: partition
     disks: [/dev/vda]
