@@ -150,7 +150,7 @@ flowchart TB
 
     subgraph CTRL["Ansible controller"]
       direction TB
-      HV["Host variables<br/>• Disk layout<br/>• Target distribution<br/>• continue_install"]:::support
+      HV["Host variables<br/>• Disk layout<br/>• Target distribution<br/>• ansible_tuxifier__continue_install"]:::support
       PLAY["Ansible playbook"]:::support
       ORCH["geertsky.tuxifier<br/>Task orchestration"]:::tuxifier
       RES["RPM dependency resolver<br/>geertsky.tuxifier · Python DNF API"]:::tuxifierSmall
@@ -187,9 +187,9 @@ flowchart TB
       end
 
       OS["Installed operating system"]:::artifact
-      DEC{"continue_install + kernel check"}:::decision
-      CONT["Continue boot into installed OS<br/>continue_install = true AND<br/>installed kernel = running kernel"]:::outcome
-      OFF["Power off<br/>continue_install = false OR kernel mismatch<br/>installed kernel may differ when false"]:::outcome
+      DEC{"ansible_tuxifier__continue_install + kernel check"}:::decision
+      CONT["Continue boot into installed OS<br/>ansible_tuxifier__continue_install = true AND<br/>installed kernel = running kernel"]:::outcome
+      OFF["Power off<br/>ansible_tuxifier__continue_install = false OR kernel mismatch<br/>installed kernel may differ when false"]:::outcome
 
       EXEC -->|"installs"| OS
       EXEC --> DT

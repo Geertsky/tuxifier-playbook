@@ -8,7 +8,7 @@ Documentation:
 Below a schematic representation of how the different parts of tuxifier work together.
 ```mermaid
 flowchart LR
-HOSTVARS["<div style='text-align:left;line-height:1.15'><b>host_vars/installer.yml</b><br/>• installdistribution<br/>&nbsp;&nbsp;◦ name<br/>&nbsp;&nbsp;◦ version<br/>• installdisk<br/>&nbsp;&nbsp;◦ partitioning scheme<br/>&nbsp;&nbsp;◦ LVM layout</div>"]
+HOSTVARS["<div style='text-align:left;line-height:1.15'><b>host_vars/installer.yml</b><br/>• ansible_tuxifier__installdistribution<br/>&nbsp;&nbsp;◦ name<br/>&nbsp;&nbsp;◦ version<br/>• ansible_tuxifier__installdisk<br/>&nbsp;&nbsp;◦ partitioning scheme<br/>&nbsp;&nbsp;◦ LVM layout</div>"]
 
 PLAYBOOK["<b>tuxifier-playbook</b>"]
 
@@ -33,16 +33,18 @@ click COLLECTION "https://github.com/Geertsky/tuxifier"
 _This quick start assumes that you are using virt-manager._
 
 For demonstration purposes there are initramfs images available for:
+* rocky8
 * rocky9
 * rocky10
 
 With each of them an installation of either supplied version can be performed. For other versions, they'll have to be added.<br>
-The version used only makes a difference when the `continue_install` host variable is set to `true`. In that case the kernel version used needs to be available for the target installation.<br>
-For example, the Rocky Linux 9 initramfs can install any supported target when continue_install is false. When it is true, the target repository must provide the exact running kernel package.<br>
+The version used only makes a difference when the `ansible_tuxifier__continue_install` host variable is set to `true`. In that case the kernel version used needs to be available for the target installation.<br>
+For example, the Rocky Linux 9 initramfs can install any supported target when ansible_tuxifier__continue_install is false. When it is true, the target repository must provide the exact running kernel package.<br>
 Therefore, this image can continue booting only a compatible EL9 target whose repository contains kernel-core-5.14.0-687.42.1.el9_8.x86_64.
 
 
-The two initramfs and vmlinuz images available (the role also installs version 8 targets, see the [note in the role README](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#supported-distributions); the host_vars here are for version 9 and 10):
+The three initramfs and vmlinuz images available:
+* [incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img](https://verweggistan.eu/incubator-initramfs-4.18.0-553.155.1.el8_10.x86_64.img) & [vmlinuz-4.18.0-553.155.1.el8_10.x86_64](https://verweggistan.eu/vmlinuz-4.18.0-553.155.1.el8_10.x86_64)
 * [incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
 * [incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
@@ -57,7 +59,7 @@ The ssh private and public key required to access these initramfs images are ava
 Define a new virtual machine using virt-manager. An existing virtual machine can be used as well, but the disk will be destroyed.
 
 In the `hardware details` of the virtual machine choose `Boot options` and enable the **Direct kernel boot** option.<br>
-For the `kernel path:` and `Initrd path:` choose either of the two combinations of initramfs images and vmlinuz images. _But obviously of the same version._
+For the `kernel path:` and `Initrd path:` choose either of the three combinations of initramfs images and vmlinuz images. _But obviously of the same version._
 
 For the `Kernel args` fill the following:
 ```
@@ -97,7 +99,7 @@ cd ../../
 ```
 
 >[!IMPORTANT]
->The example host variables assume that the virtual machine has a VirtIO disk. The first VirtIO disk normally appears as `/dev/vda`, so the examples use `/dev/vda` as `name` and in `disks` of the `installdisk` pool. Change this value if the installation disk uses another device path.
+>The example host variables assume that the virtual machine has a VirtIO disk. The first VirtIO disk normally appears as `/dev/vda`, so the examples use `/dev/vda` as `name` and in `disks` of the `ansible_tuxifier__installdisk` pool. Change this value if the installation disk uses another device path.
 
 ### Starting the playbook
 
