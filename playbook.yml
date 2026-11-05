@@ -11,7 +11,7 @@
         PATH: "/local/conda/envs/python-nest/sbin:/local/conda/envs/python-nest/bin:{{ ansible_facts['env']['PATH'] | default('/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin') }}"
         CONDA_PREFIX: "/local/conda/envs/python-nest"
 
-    - name: "Wait for bootup to finish"
+    - name: "Wait for the boot up to finish"
       ansible.builtin.wait_for_connection:
         delay: 5
         timeout: 600
@@ -20,6 +20,6 @@
       ansible.builtin.setup:
 
     - name: Continue install
-      when: continue_install is defined and continue_install
+      when: ansible_tuxifier__continue_install | default(false) | bool
       ansible.builtin.include_tasks:
         file: continue_install.yml
