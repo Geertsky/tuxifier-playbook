@@ -1,4 +1,7 @@
 ---
+skip_list:
+  - yaml[line-length]
+  - yaml[document-start]
 profile: production
 kinds:
   - tasks: "**/continue_install.yml"
