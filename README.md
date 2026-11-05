@@ -29,6 +29,16 @@ click SSHD "https://github.com/gsauthof/dracut-sshd"
 click PYTHON "https://github.com/Geertsky/python-nest"
 click COLLECTION "https://github.com/Geertsky/tuxifier"
 ```
+## Where this fits
+
+This repository is one of four that make up the tuxifier installer:
+
+| Repository | Role |
+|---|---|
+| [dracut-incubator](https://github.com/Geertsky/dracut-incubator)  | The dracut module that puts the packed python-nest environment in an initramfs and holds the boot until the install is done |
+| [python-nest](https://github.com/Geertsky/python-nest) | The conda recipes and the environment that make up the python-nest environment |
+| [tuxifier](https://github.com/Geertsky/tuxifier) | The ansible collection that runs inside that initramfs and installs the OS |
+| `tuxifier-playbook`(this one) | An example playbook and inventory |
 ## Quick-start
 _This quick start assumes that you are using virt-manager._
 
