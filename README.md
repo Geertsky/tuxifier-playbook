@@ -42,7 +42,7 @@ For example, the Rocky Linux 9 initramfs can install any supported target when c
 Therefore, this image can continue booting only a compatible EL9 target whose repository contains kernel-core-5.14.0-687.42.1.el9_8.x86_64.
 
 
-The two initramfs and vmlinuz images available (only version 9 and 10 are supported here; version 8 is supported in the `el8` branch of this repository, see the [note in the role README](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#supported-distributions)):
+The two initramfs and vmlinuz images available (the role also installs version 8 targets, see the [note in the role README](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#supported-distributions); the host_vars here are for version 9 and 10):
 * [incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img](https://verweggistan.eu/incubator-initramfs-5.14.0-687.42.1.el9_8.x86_64.img) & [vmlinuz-5.14.0-687.42.1.el9_8.x86_64](https://verweggistan.eu/vmlinuz-5.14.0-687.42.1.el9_8.x86_64)
 * [incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img](https://verweggistan.eu/incubator-initramfs-6.12.0-211.44.1.el10_2.x86_64.img) & [vmlinuz-6.12.0-211.44.1.el10_2.x86_64](https://verweggistan.eu/vmlinuz-6.12.0-211.44.1.el10_2.x86_64)
 
@@ -106,3 +106,13 @@ ansible-playbook -l installer9-bios playbook.yml
 ```
 > [!WARNING]
 > This playbook will destroy the installation disk without further warning!
+
+## Testing
+
+The checks are run with [tox](https://tox.wiki), the settings are in `tox.ini`. `tox` runs `yamllint`, `ansible-lint`, `codespell`, `markdownlint`, `shellcheck` and `syntax-check`. They report findings, they do not fix them; the ones that exist are listed in `.plan/FINDINGS.md` of the tuxifier_project superproject.
+
+The playbooks use `geertsky.tuxifier.ansible_tuxifier`. The environments install the checkout `../tuxifier` into a temporary collections path, so the local checkout is checked and not a released version. `TUXIFIER_COLLECTION=/path/to/tuxifier tox` uses another checkout.
+
+`syntax-check` runs `ansible-playbook --syntax-check` with a throwaway inventory, because the real one needs the `inventory/host_vars/installer*.yml` links that are not in git.
+
+The installation of a distribution in virtual machines is tested in the `tuxifier` repository, see [Testing](https://github.com/Geertsky/tuxifier#testing) in its README: the environments there run the role on the initramfs of dracut-incubator for Rocky Linux, RHEL, AlmaLinux and Fedora, on BIOS and UEFI, in several storage layouts, and one of them (`demo`) sets up the demo site of this playbook on the installed system. The [testing documentation](https://github.com/Geertsky/tuxifier/blob/main/tests/README.md) describes the test environment. Running this playbook itself in the libvirt VMs `installer{9,10}-{bios,uefi}` is done with the skill `/tuxifier:test-installers` and is not part of tox.
