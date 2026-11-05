@@ -89,8 +89,9 @@ ansible-galaxy collection install git+https://github.com/Geertsky/tuxifier.git
 ```
 
 The collection needs the role [linux-system-roles.storage](https://github.com/linux-system-roles/storage) to create the storage layout. It is a role and not a collection, so it is installed separately, from its `main` branch and not from the latest release (1.22.1), which lacks what `tuxifier` needs:
+The tuxifier collection contains an `ansible-galaxy requirements.yml` file. This can be use to install the `linux-system-roles.storage` role:
 ```sh
-git clone https://github.com/linux-system-roles/storage ~/.ansible/roles/linux-system-roles.storage
+ansible-galaxy install -r ~/.ansible/collections/ansible_collections/geertsky/tuxifier/requirements.yml
 ```
 The role README of the collection explains [why the version matters](https://github.com/Geertsky/tuxifier/blob/main/roles/ansible_tuxifier/README.md#roles).
 
@@ -121,7 +122,7 @@ ansible-playbook -l installer9-bios playbook.yml
 
 ## Testing
 
-The checks are run with [tox](https://tox.wiki), the settings are in `tox.ini`. `tox` runs `yamllint`, `ansible-lint`, `codespell`, `markdownlint`, `shellcheck` and `syntax-check`. They report findings, they do not fix them; the ones that exist are listed in `.plan/FINDINGS.md` of the tuxifier_project superproject.
+The checks are run with [tox](https://tox.wiki), the settings are in `tox.ini`. `tox` runs `yamllint`, `ansible-lint`, `codespell`, `markdownlint`, `shellcheck` and `syntax-check`.
 
 The playbooks use `geertsky.tuxifier.ansible_tuxifier`. The environments install the checkout `../tuxifier` into a temporary collections path, so the local checkout is checked and not a released version. `TUXIFIER_COLLECTION=/path/to/tuxifier tox` uses another checkout.
 
