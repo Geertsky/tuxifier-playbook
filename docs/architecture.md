@@ -95,7 +95,7 @@ flowchart TB
   end
 
   %% ==================== LINKS ====================
-  click DTBUILD "https://github.com/Geertsky/dracut-incubator/blob/HEAD/94tuxifier/module-setup.sh" "dracut-incubator build integration" _blank
+  click DTBUILD "https://github.com/Geertsky/dracut-incubator/blob/HEAD/94incubator/module-setup.sh" "dracut-incubator build integration" _blank
   click TPBUILD "https://github.com/Geertsky/python-nest/blob/HEAD/README.md" "python-nest build and runtime documentation" _blank
 
   %% ==================== STYLING ====================
