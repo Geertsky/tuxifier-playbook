@@ -62,35 +62,35 @@ flowchart TB
   subgraph PREP["PREPARATION — prerequisite builds before installation"]
     direction TB
 
-    subgraph PYBUILD["Build python-nest"]
+    subgraph PYBUILD["Build python-nest(<i>tuxifier-runtime</i>)"]
       direction LR
       CF["conda-forge channel"]:::support
       GC["geertsky channel"]:::support
       CONDA["Conda"]:::support
-      TPBUILD["python-nest<br/>Conda environment"]:::tuxpy
+      TPBUILD["python-nest<br/>(<i>tuxifier-runtime</i>)<br/>Conda environment"]:::tuxpy
       PACK["conda-pack"]:::support
       SQ["python-nest.squashfs"]:::artifact
 
-      CF -->|"supplies packages"| CONDA
-      GC -->|"supplies packages"| CONDA
+      CF -.->|"supplies packages"| CONDA
+      GC -.->|"supplies packages"| CONDA
       CONDA -->|"creates environment"| TPBUILD
       TPBUILD --> PACK
-      PACK -->|"packages as SquashFS"| SQ
+      PACK -->|"pack as SquashFS"| SQ
     end
 
     subgraph BOOTBUILD["Build boot environment"]
       direction LR
-      DTBUILD["dracut-incubator"]:::dracutTux
+      DTBUILD["dracut-incubator(<i>tuxifier-boot</i>)"]:::dracutTux
       SSHDBUILD["dracut-sshd"]:::support
       DRACUT["dracut"]:::support
       INIT["Customized initramfs"]:::custinitramfs
 
       DTBUILD -->|"module used by"| DRACUT
-      SSHDBUILD -->|"sshd module used by"| DRACUT
+      SSHDBUILD -->|"module used by"| DRACUT
       DRACUT -->|"generates"| INIT
     end
 
-    SQ -->|"embeds runtime"| DTBUILD
+    SQ <-.->|"embeds python-nest<br/>(<i>tuxifier-runtime</i>)"| DTBUILD
 
   end
 
@@ -137,25 +137,25 @@ flowchart TB
 
     INIT["Customized initramfs"]:::custinitramfs --> BOOTREQ
     KERNEL["Linux kernel"]:::artifact
-    BOOTREQ["Target installation-environment boot prerequisites"]:::note
+    BOOTREQ[" installation-environment boot prerequisites"]:::note
     KERNEL --> BOOTREQ
-    BOOTREQ--> IR
+    BOOTREQ-.->|<i>PXE/iPXE/ISO/BMC</i>| IR
   %% ==================== SHARED DISTRIBUTION REPOSITORY ====================
   RPMREPO["Distribution RPM repository<br/><br/><i>provides package metadata to resolver</i>"]:::repo
-  RPMREPO --> RES
-  RPMREPO -->|"supplies OS packages"| EXEC
-  RES -->|"resolved RPM URLs"| EXEC
-  ORCH -->|"SSH"| SSHD
+  RPMREPO -.-> RES
+  RPMREPO -.->|"supplies OS packages"| EXEC
+  RES -.->|"resolved RPM URLs"| EXEC
+  ORCH -.->|"SSH"| SSHD
 
 
     subgraph CTRL["Ansible controller"]
       direction TB
-      HV["Host variables<br/>• Disk layout<br/>• Target distribution<br/>• ansible_tuxifier__continue_install"]:::support
+      HV["Host&nbsp;variables<br/>•&nbsp;Disk&nbsp;layout<br/>•&nbsp;Target&nbsp;distribution<br/>•&nbsp;continue_install"]:::support
       PLAY["Ansible playbook"]:::support
       ORCH["geertsky.tuxifier<br/>Task orchestration"]:::tuxifier
       RES["RPM dependency resolver<br/>geertsky.tuxifier · Python DNF API"]:::tuxifierSmall
 
-      HV --> PLAY
+      HV -.-> PLAY
       PLAY -->|"invokes"| ORCH
       ORCH -->|"delegated to localhost"| RES
     end
@@ -166,11 +166,11 @@ flowchart TB
 
       subgraph IR["initramfs — Boot environment"]
         direction TB
-        DT["<b>dracut-incubator</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest runtime</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
+        DT["<b>dracut-incubator<br/>(<i>tuxifier-boot</i>)</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest<br/>(<i>tuxifier-runtime</i>)</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
         SSHD["dracut-sshd"]:::support
-        EXEC["geertsky.tuxifier<br/>Installation task execution"]:::tuxifier
+        EXEC["geertsky.tuxifier<br/>(<i>tuxifier-tasks-collection</i>)<br/>Installation task execution"]:::tuxifier
 
-        subgraph TPENV["python-nest — Conda environment"]
+        subgraph TPENV["python-nest&nbsp;(<i>tuxifier-runtime</i>)"]
           direction TB
           TPTITLE["python-nest"]:::tuxpy
           PY["Python runtime"]:::runtime
@@ -187,9 +187,9 @@ flowchart TB
       end
 
       OS["Installed operating system"]:::artifact
-      DEC{"ansible_tuxifier__continue_install + kernel check"}:::decision
-      CONT["Continue boot into installed OS<br/>ansible_tuxifier__continue_install = true AND<br/>installed kernel = running kernel"]:::outcome
-      OFF["Power off<br/>ansible_tuxifier__continue_install = false OR kernel mismatch<br/>installed kernel may differ when false"]:::outcome
+      DEC{"continue_install + kernel check"}:::decision
+      CONT["<b>Continue boot into installed OS</b><br/>continue_install = true AND<br/>installed kernel = running kernel"]:::outcome
+      OFF["<b>Power off</b><br/>continue_install = false OR kernel mismatch<br/>installed kernel may differ when false"]:::outcome
 
       EXEC -->|"installs"| OS
       EXEC --> DT
