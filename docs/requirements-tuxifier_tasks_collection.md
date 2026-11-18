@@ -1,5 +1,5 @@
 # Requirements tuxifier tasks collection
-As stated in the [tuxifier architecture](tuxifier_architecture.md) document, the tuxifier tasks collection to fulfill are:
+As stated in the [tuxifier architecture](architecture.md) document, the tuxifier tasks collection to fulfill are:
 - partitioning of a disk
 - creation of file systems
 - create an LVM layout (optionally)
