@@ -3,43 +3,43 @@
 
 Tuxifier is made up of different projects. These projects are:
 
-- [Tuxifier playbook](https://github.com/tuxifier-playbook)
+- [Tuxifier-playbook](https://github.com/tuxifier-playbook)
 
-- [Tuxifier tasks collection](https://github.com/Geertsky/tuxifier)
+- [Tuxifier-tasks-collection](https://github.com/Geertsky/tuxifier)
 
 - [Tuxifier-runtime](https://github.com/Geertsky/python-nest)
 
-- [Tuxifier boot](https://github.com/Geertsky/dracut-incubator)
+- [Tuxifier-boot](https://github.com/Geertsky/dracut-incubator)
 
-## Tuxifier playbook
+## Tuxifier-playbook
 
-The tuxifier playbook is just a simple playbook that imports the `ansible_tuxifier` role of the Tuxifier tasks collection.
+The tuxifier-playbook is just a simple playbook that imports the `ansible_tuxifier` role of the Tuxifier-tasks-collection.
 
-## Tuxifier tasks collection
+## Tuxifier-tasks-collection
 
-At the heart of Tuxifier is the Tuxifier tasks collection. The Tuxifier tasks collection consists of the tasks to partition a disk and install an OS on it.
+At the heart of Tuxifier is the Tuxifier-tasks-collection. The Tuxifier-tasks-collection consists of the tasks to partition a disk and install an OS on it.
 
 ## Tuxifier-runtime
 
 Tuxifier-runtime is a runtime environment that is completely independent and portable.<br>
-The Tuxifier-runtime environment is an additional layer on top of the OS that enables the execution of the tasks specified in the Tuxifier tasks collection.
+The Tuxifier-runtime environment is an additional layer on top of the OS that enables the execution of the tasks specified in the Tuxifier-tasks-collection.
 For the Tuxifier-runtime, a [conda Python environment](https://docs.conda.io/projects/conda/en/stable/) is built. The Tuxifier-runtime consists of:
 
 - Python
 - Basic Linux tools
 - Partitioning tools
 
-## Tuxifier boot
+## Tuxifier-boot
 
-Tuxifier boot creates a boot environment with an ssh server and with the Tuxifier-runtime environment included.
-This makes it possible for the Tuxifier tasks collection to be executed at boot time.
+Tuxifier-boot creates a boot environment with an ssh server and with the Tuxifier-runtime environment included.
+This makes it possible for the Tuxifier-tasks-collection to be executed at boot time.
 
 # Tuxifier execution flow
 
-Tuxifier boot basically pauses execution just before the root file system with the installation gets accessed.
+Tuxifier-boot basically pauses execution just before the root file system with the installation gets accessed.
 This happens really early, within the first seconds, when you boot your server.
 
-At that point, the Tuxifier tasks collection, executed on a different control server, partitions the disk and installs an OS onto it.
+At that point, the Tuxifier-tasks-collection, executed on a different control server, partitions the disk and installs an OS onto it.
 Finally, it triggers continuation of the boot process which either boots the target machine to the just installed operating system, or powers off the target machine.
 # Components and Relationships
 
@@ -80,7 +80,7 @@ flowchart TB
 
     subgraph BOOTBUILD["Build boot environment"]
       direction LR
-      DTBUILD["dracut-incubator(<i>tuxifier-boot</i>)"]:::dracutTux
+      DTBUILD["dracut-incubator<br/>(<i>tuxifier-boot</i>)"]:::dracutTux
       SSHDBUILD["dracut-sshd"]:::support
       DRACUT["dracut"]:::support
       INIT["Customized initramfs"]:::custinitramfs
@@ -150,9 +150,9 @@ flowchart TB
 
     subgraph CTRL["Ansible controller"]
       direction TB
-      HV["Host&nbsp;variables<br/>•&nbsp;Disk&nbsp;layout<br/>•&nbsp;Target&nbsp;distribution<br/>•&nbsp;continue_install"]:::support
-      PLAY["Ansible playbook"]:::support
-      ORCH["geertsky.tuxifier<br/>Task orchestration"]:::tuxifier
+      HV["<b>Host&nbsp;variables</b><br/>•&nbsp;Disk&nbsp;layout<br/>•&nbsp;Target&nbsp;distribution<br/>•&nbsp;continue_install"]:::support
+      PLAY["Ansible&nbsp;playbook"]:::support
+      ORCH["geertsky.tuxifier<br/>(<i>tuxifier&#8209;tasks&#8209;collection</i>)<br/>Task orchestration"]:::tuxifier
       RES["RPM dependency resolver<br/>geertsky.tuxifier · Python DNF API"]:::tuxifierSmall
 
       HV -.-> PLAY
@@ -166,11 +166,11 @@ flowchart TB
 
       subgraph IR["initramfs — Boot environment"]
         direction TB
-        DT["<b>dracut-incubator<br/>(<i>tuxifier-boot</i>)</b><br/><ul><li><b>Initialization</b><ul><li>mounts python-nest<br/>(<i>tuxifier-runtime</i>)</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
+        DT["<b>dracut-incubator<br/></b>(<i>tuxifier-boot</i>)<br/><ul><li><b>Initialization</b><ul><li>mounts&nbsp;python&#8209;nest<br/>(<i>tuxifier-runtime</i>)</li></ul></li><li><b>Boot control</b><ul><li>pauses boot</li></ul></li></ul>"]:::dracutTux
         SSHD["dracut-sshd"]:::support
-        EXEC["geertsky.tuxifier<br/>(<i>tuxifier-tasks-collection</i>)<br/>Installation task execution"]:::tuxifier
+        EXEC["geertsky.tuxifier<br/>(<i>tuxifier&#8209;tasks&#8209;collection</i>)<br/>Installation task execution"]:::tuxifier
 
-        subgraph TPENV["python-nest&nbsp;(<i>tuxifier-runtime</i>)"]
+        subgraph TPENV["python-nest&nbsp;(<i>tuxifier&#8209;runtime</i>)"]
           direction TB
           TPTITLE["python-nest"]:::tuxpy
           PY["Python runtime"]:::runtime
@@ -238,3 +238,4 @@ flowchart TB
   style IR fill:#F5F8F8,stroke:#91A6AA,stroke-width:2px
   style TPENV fill:#F0FAF8,stroke:#63A39D,stroke-width:2px
 ```
+
